@@ -15,6 +15,7 @@ import { RouterLink } from '@angular/router';
 export class EmployeeListComponent implements OnInit {
   employees: Employee[] = [];
   loading = true;
+  errorMessage: string = '';
 
   constructor(
     private employeeService: EmployeeService,
@@ -26,36 +27,32 @@ export class EmployeeListComponent implements OnInit {
   }
 
   loadEmployees() {
+    this.loading = true;
     this.employeeService.getEmployees().subscribe({
-      next: (result: any) => {
-        this.employees = result.data.getEmployees;
+      next: (result) => {
+        this.employees = result || [];
         this.loading = false;
       },
       error: (error) => {
         console.error('Error loading employees:', error);
+        this.errorMessage = error.message || 'Failed to load employees.';
         this.loading = false;
       }
     });
   }
 
   editEmployee(id: string) {
-    if (id) {
-      this.router.navigate(['/employees/edit', id]);
-    }
+    this.router.navigate(['/employees/edit', id]);
   }
 
   viewDetails(id: string) {
-    if (id) {
-      this.router.navigate(['/employees/detail', id]);
-    }
+    this.router.navigate(['/employees/detail', id]);
   }
 
   deleteEmployee(id: string) {
-    if (id && confirm('Are you sure you want to delete this employee?')) {
+    if (confirm('Are you sure you want to delete this employee?')) {
       this.employeeService.deleteEmployee(id).subscribe({
-        next: () => {
-          this.loadEmployees();
-        },
+        next: () => this.loadEmployees(),
         error: (error) => {
           console.error('Error deleting employee:', error);
         }

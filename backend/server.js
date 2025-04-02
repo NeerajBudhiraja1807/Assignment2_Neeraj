@@ -3,8 +3,8 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
-const schema = require('./schema'); 
+const schema = require('./schema');
+const authenticate = require('./middleware/auth');
 
 const app = express();
 
@@ -16,57 +16,34 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('✅ MongoDB Connected Successfully'))
 .catch(err => console.log('❌ MongoDB Connection Error:', err));
 
-// CORS configuration for Angular frontend
+// CORS Configuration
 app.use(cors({
-    origin: 'http://localhost:4200', // Allow only the Angular frontend to access
-    credentials: true,               // Allow credentials (cookies, headers, etc.)
+    origin: 'http://localhost:4200',
+    credentials: true
 }));
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
+  
 
-// Middleware to parse JSON
 app.use(express.json());
-
-// Authentication Middleware (Only for Protected Routes)
-const authenticate = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    if (authHeader) {
-        const token = authHeader.split(' ')[1]; 
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = decoded; 
-        } catch (err) {
-            return res.status(401).json({ error: "Invalid or expired token" });
-        }
-    }
-    next(); 
-};
 
 // GraphQL Endpoint
 app.use('/graphql', (req, res, next) => {
-    let user = null;
-    const authHeader = req.headers.authorization;
-    
-    if (authHeader) {
-        const token = authHeader.split(' ')[1]; 
-        try {
-            user = jwt.verify(token, process.env.JWT_SECRET); 
-        } catch (err) {
-            console.log("❌ Invalid or Expired Token");
-        }
-    }
-
+    const user = authenticate(req);
     graphqlHTTP({
         schema,
         graphiql: true,
-        context: { user } 
+        context: { user }
     })(req, res, next);
 });
 
-// Root Route
+// Root
 app.get('/', (req, res) => {
-    res.send('🚀 Employee Management System Backend is Running!');
+    res.send('🚀 Employee Management Backend Running!');
 });
 
-// Start Server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

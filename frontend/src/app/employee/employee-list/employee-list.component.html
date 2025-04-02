@@ -1,45 +1,47 @@
 <div class="employee-list-container">
-    <div class="header">
-      <h2>Employee List</h2>
-      <button routerLink="/employees/add">Add Employee</button>
-    </div>
-  
-    @if (loading) {
-      <div class="loading">Loading employees...</div>
-    }
-  
-    @if (!loading && employees.length === 0) {
-      <div class="no-employees">
-        No employees found. Add a new employee to get started.
-      </div>
-    }
-  
-    @if (!loading && employees.length > 0) {
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Designation</th>
-            <th>Department</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (employee of employees; track employee.id) {
-            <tr>
-              <td>{{ employee.first_name }} {{ employee.last_name }}</td>
-              <td>{{ employee.email }}</td>
-              <td>{{ employee.designation }}</td>
-              <td>{{ employee.department }}</td>
-              <td>
-                <button (click)="viewDetails(employee.id)">View</button>
-                <button (click)="editEmployee(employee.id)">Edit</button>
-                <button (click)="deleteEmployee(employee.id)">Delete</button>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    }
+  <div class="header">
+    <h2>Employee List</h2>
+    <button routerLink="/employees/add">Add Employee</button>
   </div>
+
+  @if (loading) {
+    <div class="loading">Loading employees...</div>
+  }
+
+  @if (errorMessage) {
+    <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  @if (!loading && employees.length === 0 && !errorMessage) {
+    <div class="no-employees">No employees found. Add a new employee to get started.</div>
+  }
+
+  @if (!loading && employees.length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Designation</th>
+          <th>Department</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (employee of employees; track employee.id) {
+          <tr>
+            <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.designation }}</td>
+            <td>{{ employee.department }}</td>
+            <td>
+              <button (click)="viewDetails(employee.id)">View</button>
+              <button (click)="editEmployee(employee.id)">Edit</button>
+              <button (click)="deleteEmployee(employee.id)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

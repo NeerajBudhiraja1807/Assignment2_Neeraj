@@ -1,4 +1,3 @@
-// queries.ts
 import { gql } from 'apollo-angular';
 
 export const GET_EMPLOYEES_QUERY = gql`

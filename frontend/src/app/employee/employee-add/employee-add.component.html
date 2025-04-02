@@ -1,1 +1,61 @@
-<p>employee-add works!</p>
+<div class="employee-add-container">
+    <h2>Add New Employee</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label>First Name:</label>
+        <input type="text" [(ngModel)]="employee.first_name" name="first_name" required />
+      </div>
+  
+      <div>
+        <label>Last Name:</label>
+        <input type="text" [(ngModel)]="employee.last_name" name="last_name" required />
+      </div>
+  
+      <div>
+        <label>Email:</label>
+        <input type="email" [(ngModel)]="employee.email" name="email" required />
+      </div>
+  
+      <div>
+        <label>Gender:</label>
+        <select [(ngModel)]="employee.gender" name="gender" required>
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+  
+      <div>
+        <label>Designation:</label>
+        <input type="text" [(ngModel)]="employee.designation" name="designation" required />
+      </div>
+  
+      <div>
+        <label>Salary:</label>
+        <input type="number" [(ngModel)]="employee.salary" name="salary" required />
+      </div>
+  
+      <div>
+        <label>Date of Joining:</label>
+        <input type="date" [(ngModel)]="employee.date_of_joining" name="date_of_joining" required />
+      </div>
+  
+      <div>
+        <label>Department:</label>
+        <input type="text" [(ngModel)]="employee.department" name="department" required />
+      </div>
+  
+      <div>
+        <label>Employee Photo URL:</label>
+        <input type="text" [(ngModel)]="employee.employee_photo" name="employee_photo" />
+      </div>
+  
+      <button type="submit">Add Employee</button>
+  
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+  

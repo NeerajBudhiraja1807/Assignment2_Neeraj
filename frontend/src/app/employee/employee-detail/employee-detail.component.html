@@ -1,1 +1,11 @@
-<p>employee-detail works!</p>
+<div class="detail-container" *ngIf="employee">
+    <h2>{{ employee.first_name }} {{ employee.last_name }}</h2>
+    <p><strong>Email:</strong> {{ employee.email }}</p>
+    <p><strong>Designation:</strong> {{ employee.designation }}</p>
+    <p><strong>Department:</strong> {{ employee.department }}</p>
+    <p><strong>Salary:</strong> ${{ employee.salary }}</p>
+    <p><strong>Gender:</strong> {{ employee.gender }}</p>
+    <p><strong>Date of Joining:</strong> {{ employee.date_of_joining }}</p>
+    <img *ngIf="employee.employee_photo" [src]="employee.employee_photo" alt="Employee Photo" width="100" />
+  </div>
+  

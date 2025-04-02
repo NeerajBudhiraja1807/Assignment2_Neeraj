@@ -1,0 +1,26 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: white;
+  }
+  
+  .nav-links a,
+  .nav-actions a,
+  .nav-actions button {
+    color: white;
+    margin-right: 10px;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .nav-actions button:hover,
+  .nav-links a:hover,
+  .nav-actions a:hover {
+    text-decoration: underline;
+  }
+  
