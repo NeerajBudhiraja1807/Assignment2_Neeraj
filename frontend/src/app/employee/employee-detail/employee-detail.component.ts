@@ -13,6 +13,7 @@ import { Employee } from '../../shared/models/employee.model';
 })
 export class EmployeeDetailComponent implements OnInit {
   employee: Employee | null = null;
+  errorMessage = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -23,11 +24,12 @@ export class EmployeeDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.employeeService.getEmployee(id).subscribe({
-        next: (result: any) => {
-          this.employee = result.data.searchEmployee;
+        next: (employee: Employee) => {
+          this.employee = employee;
         },
-        error: (error) => {
-          console.error('Error loading employee details:', error);
+        error: (err) => {
+          console.error('Error loading employee details:', err);
+          this.errorMessage = 'Unable to load employee details.';
         }
       });
     }

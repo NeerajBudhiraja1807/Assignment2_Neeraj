@@ -39,6 +39,12 @@ export const ADD_EMPLOYEE_MUTATION = gql`
       first_name
       last_name
       email
+      gender
+      designation
+      salary
+      date_of_joining
+      department
+      employee_photo
     }
   }
 `;
@@ -72,6 +78,12 @@ export const UPDATE_EMPLOYEE_MUTATION = gql`
       first_name
       last_name
       email
+      gender
+      designation
+      salary
+      date_of_joining
+      department
+      employee_photo
     }
   }
 `;

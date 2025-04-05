@@ -1,26 +1,41 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #2c3e50;
-    color: white;
-  }
-  
-  .nav-links a,
-  .nav-actions a,
-  .nav-actions button {
-    color: white;
-    margin-right: 10px;
-    text-decoration: none;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .nav-actions button:hover,
-  .nav-links a:hover,
-  .nav-actions a:hover {
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #2c3e50;
+  color: white;
+}
+
+/* Title aligned left */
+.nav-title p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Everything on the right */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-links a,
+.nav-actions a,
+.nav-actions button {
+  color: white;
+  margin-right: 10px;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.nav-actions button:hover,
+.nav-links a:hover,
+.nav-actions a:hover {
+  text-decoration: underline;
+}

@@ -8,6 +8,14 @@ const authenticate = require('./middleware/auth');
 
 const app = express();
 
+// ✅ Middleware order is important
+app.use(cors({
+    origin: 'http://localhost:4200',
+    credentials: true
+}));
+
+app.use(express.json()); // ✅ correctly applied once globally
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -16,31 +24,25 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('✅ MongoDB Connected Successfully'))
 .catch(err => console.log('❌ MongoDB Connection Error:', err));
 
-// CORS Configuration
-app.use(cors({
-    origin: 'http://localhost:4200',
-    credentials: true
-}));
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-  });
-  
-
-app.use(express.json());
-
-// GraphQL Endpoint
-app.use('/graphql', (req, res, next) => {
+// ✅ GraphQL Route — no second express.json() here
+app.use('/graphql', (req, res) => {
+    console.log('🧪 Incoming GraphQL request body:', req.body); // 👈 ADD THIS LINE
     const user = authenticate(req);
     graphqlHTTP({
         schema,
         graphiql: true,
         context: { user }
-    })(req, res, next);
+    })(req, res);
 });
 
-// Root
+
+// Global error handler (optional)
+app.use((err, req, res, next) => {
+    console.error('🔥 Server error:', err.stack);
+    res.status(500).send('Something broke!');
+});
+
+// Health Check Route
 app.get('/', (req, res) => {
     res.send('🚀 Employee Management Backend Running!');
 });

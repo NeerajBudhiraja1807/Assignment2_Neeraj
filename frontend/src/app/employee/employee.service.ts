@@ -82,7 +82,7 @@ export class EmployeeService {
     return this.apollo
       .mutate({
         mutation: UPDATE_EMPLOYEE_MUTATION,
-        variables: { ...employee },
+        variables: { ...employee }, // must include id
       })
       .pipe(
         map((result: any) => result.data.updateEmployee),
@@ -91,7 +91,7 @@ export class EmployeeService {
         )
       );
   }
-
+  
   deleteEmployee(id: string) {
     return this.apollo
       .mutate({

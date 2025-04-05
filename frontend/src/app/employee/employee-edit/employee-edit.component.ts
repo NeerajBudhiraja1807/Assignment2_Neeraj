@@ -26,20 +26,26 @@ export class EmployeeEditComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.employeeService.getEmployee(id).subscribe({
-        next: (result: any) => {
-          this.employee = result.data.searchEmployee;
+        next: (employee: Employee) => {
+          // Clone to remove __typename and make it editable
+          this.employee = { ...employee };
         },
         error: (error) => {
           console.error('Error loading employee:', error);
+          this.errorMessage = 'Failed to load employee data.';
         }
       });
     }
   }
+  
+  onSubmit(): void {
+    console.log('🔁 Updating employee:', this.employee);
 
-  onSubmit() {
     if (this.employee) {
       this.employeeService.updateEmployee(this.employee).subscribe({
-        next: () => this.router.navigate(['/employees']),
+        next: () => {
+          this.router.navigate(['/employees']);
+        },
         error: (error) => {
           console.error('Error updating employee:', error);
           this.errorMessage = error.message || 'Failed to update employee.';

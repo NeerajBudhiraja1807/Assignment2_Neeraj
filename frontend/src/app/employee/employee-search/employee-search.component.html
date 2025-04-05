@@ -1,1 +1,43 @@
-<p>employee-search works!</p>
+<div class="search-container">
+    <h2>Search Employees</h2>
+  
+    <form (ngSubmit)="onSearch()">
+      <input
+        type="text"
+        [(ngModel)]="designation"
+        name="designation"
+        placeholder="Designation"
+      />
+      <input
+        type="text"
+        [(ngModel)]="department"
+        name="department"
+        placeholder="Department"
+      />
+      <button type="submit">Search</button>
+      <button type="button" (click)="onClear()">Clear</button>
+    </form>
+  
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p *ngIf="isLoading">Searching...</p>
+  
+    <table *ngIf="employees.length > 0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Designation</th>
+          <th>Department</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees">
+          <td>{{ emp.first_name }} {{ emp.last_name }}</td>
+          <td>{{ emp.designation }}</td>
+          <td>{{ emp.department }}</td>
+          <td>{{ emp.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,10 +1,18 @@
 <nav class="navbar">
-  <div class="nav-links">
-    <a routerLink="/employees" *ngIf="authService.isAuthenticated()">Employees</a>
+  <!-- LEFT SIDE -->
+  <div class="nav-title">
+    <p>Employee Management System</p>
   </div>
-  <div class="nav-actions">
-    <button *ngIf="authService.isAuthenticated()" (click)="logout()">Logout</button>
-    <a routerLink="/login" *ngIf="!authService.isAuthenticated()">Login</a>
-    <a routerLink="/signup" *ngIf="!authService.isAuthenticated()">Signup</a>
+
+  <!-- RIGHT SIDE -->
+  <div class="nav-right">
+    <div class="nav-links">
+      <a routerLink="/employees" *ngIf="authService.isAuthenticated()">Employees</a>
+    </div>
+    <div class="nav-actions">
+      <button *ngIf="authService.isAuthenticated()" (click)="logout()">Logout</button>
+      <a routerLink="/login" *ngIf="!authService.isAuthenticated()">Login</a>
+      <a routerLink="/signup" *ngIf="!authService.isAuthenticated()">Signup</a>
+    </div>
   </div>
 </nav>

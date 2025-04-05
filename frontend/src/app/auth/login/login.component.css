@@ -1,26 +1,79 @@
+/* Container */
 .login-container {
-  width: 300px;
-  margin: auto;
-  margin-top: 100px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Heading */
 .login-container h2 {
   text-align: center;
+  font-size: 26px;
+  margin-bottom: 5px;
+  color: #2c3e50;
 }
 
-.login-container div {
-  margin-bottom: 15px;
-}
-
-.login-container input {
-  width: 100%;
-  padding: 8px;
-}
-
-.error-message {
-  color: red;
+/* Subtitle */
+.subtitle {
   text-align: center;
+  margin-bottom: 25px;
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+input[type='email'],
+input[type='password'] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2980b9;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #2980b9;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #2471a3;
+}
+
+/* Error Message */
+.error-message {
+  color: #e74c3c;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 500;
 }

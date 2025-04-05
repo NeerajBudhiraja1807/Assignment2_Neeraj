@@ -2,7 +2,7 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient, withFetch, HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http'; // ✅ removed withFetch & HttpClientModule
 import { APOLLO_OPTIONS, Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
@@ -14,8 +14,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(withFetch()),
-    HttpClientModule,
+    provideHttpClient(), // ✅ use this only
     {
       provide: APOLLO_OPTIONS,
       useFactory(httpLink: HttpLink) {
@@ -26,7 +25,7 @@ export const appConfig: ApplicationConfig = {
             );
           }
           if (networkError) {
-            console.error(`[Network error]: ${networkError}`);
+            console.error(`[Network error]:`, networkError);
           }
         });
 
