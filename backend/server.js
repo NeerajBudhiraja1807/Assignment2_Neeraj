@@ -10,9 +10,12 @@ const app = express();
 
 // ✅ Middleware order is important
 app.use(cors({
-    origin: 'http://localhost:4200',
+    origin: [
+      'http://localhost:4200',
+      'https://neeraj-jqd7tiqlc-milans-projects-dfa726a2.vercel.app'
+    ],
     credentials: true
-}));
+  }));
 
 app.use(express.json()); // ✅ correctly applied once globally
 

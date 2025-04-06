@@ -2,19 +2,20 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http'; // ✅ removed withFetch & HttpClientModule
+import { provideHttpClient } from '@angular/common/http';
 import { APOLLO_OPTIONS, Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { onError } from '@apollo/client/link/error';
 import { setContext } from '@apollo/client/link/context';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(), // ✅ use this only
+    provideHttpClient(),
     {
       provide: APOLLO_OPTIONS,
       useFactory(httpLink: HttpLink) {
@@ -40,7 +41,7 @@ export const appConfig: ApplicationConfig = {
         });
 
         const http = httpLink.create({
-          uri: 'http://localhost:5001/graphql'
+          uri: environment.graphqlUri
         });
 
         return {
