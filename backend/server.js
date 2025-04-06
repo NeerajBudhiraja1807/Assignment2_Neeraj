@@ -12,7 +12,7 @@ const app = express();
 app.use(cors({
     origin: [
       'http://localhost:4200',
-      'https://neeraj-jqd7tiqlc-milans-projects-dfa726a2.vercel.app'
+      'https://assignment2-2jkbk3t0m-neerajbudhiraja1807s-projects.vercel.app'
     ],
     credentials: true
   }));
